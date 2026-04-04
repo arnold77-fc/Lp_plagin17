@@ -7938,36 +7938,7 @@
                     object-fit: contain !important;
                     border: none !important;
                 }
-                // Добавьте этот CSS в блок стилей плагина
-const extraStyles = `
-    /* Анимация пульсации для 4K/HDR */
-    @keyframes pulse-badge {
-        0% { transform: scale(1); opacity: 0.9; }
-        50% { transform: scale(1.05); opacity: 1; text-shadow: 0 0 5px #fff; }
-        100% { transform: scale(1); opacity: 0.9; }
-    }
-
-    /* Анимация перелива (глянец) */
-    @keyframes sheen {
-        0% { transform: translateX(-100%) skewX(-15deg); }
-        100% { transform: translateX(200%) skewX(-15deg); }
-    }
-
-    .card__badge--custom {
-        position: relative;
-        overflow: hidden;
-        animation: pulse-badge 2s infinite ease-in-out;
-    }
-
-    /* Эффект блеска поверх иконки */
-    .card__badge--custom::after {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 50%; height: 100%;
-        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-        animation: sheen 3s infinite;
-    }
-</style>`;
+                   </style>`;
         
         if (typeof $ !== 'undefined') {
             $('body').append(styleBlock);
