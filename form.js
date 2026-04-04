@@ -7900,40 +7900,6 @@
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
  
-// ========== ДОПОЛНЕНИЕ: УВЕЛИЧЕНИЕ ИКОНОК 5.1, 2.0, HD ==========
-(function() {
-    try {
-        var customStyles = `
-            <style>
-                /* Нацеливаемся на текстовые иконки (5.1, 2.0, 4K, и т.д.) */
-                .quality-badge, 
-                .applecation__quality-badges span {
-                    display: inline-flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    
-                    /* Увеличиваем только шрифт внутри */
-                    font-size: 16px !important; 
-                    font-weight: 800 !important;
-                    
-                    /* Фиксируем высоту контейнера, чтобы он не раздувался и не двигал другие иконки */
-                    height: 22px !important;
-                    padding: 0 6px !important;
-                    line-height: 1 !important;
-                }
-
-                /* Нацеливаемся на графические иконки (логотипы HD, Dolby и др.) */
-                .quality-badge svg, 
-                .applecation__quality-badges svg,
-                .quality-badge img,
-                .applecation__quality-badges img {
-                    /* Увеличиваем саму иконку внутри, сохраняя пропорции */
-                    height: 18px !important; 
-                    width: auto !important;
-                    margin: 0 !important;
-                }
-            </style>
-        `;
 // ВСТАВЛЯТЬ ПОСЛЕ ПОСЛЕДНЕЙ СТРОКИ ВАШЕГО ФАЙЛА (после })(); )
 
 (function() {
