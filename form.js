@@ -7906,7 +7906,7 @@
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    gap:6px !important;
+                    gap:8px !important;
                     height: 12 !important;
                 }
                 /* Плашки 5.1, 2.0, 7.1, HD, 4K */
