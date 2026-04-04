@@ -7934,53 +7934,60 @@
                 }
             </style>
         `;
+// ВСТАВЛЯТЬ ПОСЛЕ ПОСЛЕДНЕЙ СТРОКИ ВАШЕГО ФАЙЛА (после })(); )
 
-    
-// ========== ДОПОЛНЕНИЕ: УВЕЛИЧЕНИЕ ИКОНОК 5.1, 2.0, HD ==========
 (function() {
     try {
         var customStyles = `
             <style>
-                /* Нацеливаемся на текстовые иконки (5.1, 2.0, 4K, и т.д.) */
+                /* Нацеливаемся на плашки с текстом (5.1, 2.0, HD и др.) */
                 .quality-badge, 
                 .applecation__quality-badges span {
                     display: inline-flex !important;
                     align-items: center !important;
                     justify-content: center !important;
                     
-                    /* Увеличиваем только шрифт внутри */
+                    /* Увеличиваем размер шрифта */
                     font-size: 16px !important; 
                     font-weight: 800 !important;
                     
-                    /* Фиксируем высоту контейнера, чтобы он не раздувался и не двигал другие иконки */
+                    /* Фиксируем высоту, чтобы не увеличивать всю строку */
                     height: 22px !important;
                     padding: 0 6px !important;
                     line-height: 1 !important;
+                    background: rgba(255, 255, 255, 0.25) !important;
                 }
 
-                /* Нацеливаемся на графические иконки (логотипы HD, Dolby и др.) */
+                /* Нацеливаемся на графические логотипы (SVG/IMG) внутри этих плашек */
                 .quality-badge svg, 
                 .applecation__quality-badges svg,
                 .quality-badge img,
                 .applecation__quality-badges img {
-                    /* Увеличиваем саму иконку внутри, сохраняя пропорции */
+                    /* Увеличиваем саму иконку внутри, не раздувая контейнер */
                     height: 18px !important; 
                     width: auto !important;
+                    display: block !important;
                     margin: 0 !important;
                 }
             </style>
         `;
 
-        // Добавляем стили в head документа
-        if (typeof $ !== 'undefined') {
-            $('head').append(customStyles);
-        } else {
-            var styleEl = document.createElement('div');
-            styleEl.innerHTML = customStyles;
-            document.body.appendChild(styleEl);
-        }
+        // Безопасное добавление стилей через jQuery или чистый JS
+        var addStyles = function() {
+            if (typeof $ !== 'undefined' && $('body').length) {
+                $('body').append(customStyles);
+            } else if (document.body) {
+                var container = document.createElement('div');
+                container.innerHTML = customStyles;
+                document.body.appendChild(container);
+            } else {
+                // Если документ еще не готов, ждем 500мс
+                setTimeout(addStyles, 500);
+            }
+        };
+
+        addStyles();
     } catch (e) {
-        console.log('Error applying custom icon sizes:', e);
+        console.log('Fix icons error:', e);
     }
 })();
-    
