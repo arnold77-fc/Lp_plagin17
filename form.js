@@ -7967,8 +7967,7 @@ const extraStyles = `
         background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
         animation: sheen 3s infinite;
     }
-`;
-     </style>`;
+</style>`;
         
         if (typeof $ !== 'undefined') {
             $('body').append(styleBlock);
