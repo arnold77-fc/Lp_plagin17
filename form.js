@@ -7899,56 +7899,88 @@
     } else {
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
- // ПРАВИЛЬНАЯ ВСТАВКА ДЛЯ УВЕЛИЧЕНИЯ ИКОНОК
+ 
+// ========== ДОПОЛНЕНИЕ: УВЕЛИЧЕНИЕ ИКОНОК 5.1, 2.0, HD ==========
+(function() {
     try {
-        var styleBlock = `
-            <style id="custom-icons-size">
-                .applecation__quality-badges {
-                    display: inline-flex !important;
-                    align-items: center !important;
-                    gap:6px !important;
-                    height: 12px !important;
-                }
-                /* Плашки 5.1, 2.0, 7.1, HD, 4K */
+        var customStyles = `
+            <style>
+                /* Нацеливаемся на текстовые иконки (5.1, 2.0, 4K, и т.д.) */
                 .quality-badge, 
-                .applecation__quality-badges div,
-                .applecation__meta-item {
-                    height: 12px !important; 
+                .applecation__quality-badges span {
                     display: inline-flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    padding: 6px !important;
-                    background: rgba(255, 255, 255, 0.2) !important;
-                    border-radius: 4px !important;
-                    border: none !important;
-                    font-size: 12px !important; /* Размер текста как у 7.1 */
-                    font-weight:450!important; /* Жирность */
-                    color: #fff !important;
+                    
+                    /* Увеличиваем только шрифт внутри */
+                    font-size: 16px !important; 
+                    font-weight: 800 !important;
+                    
+                    /* Фиксируем высоту контейнера, чтобы он не раздувался и не двигал другие иконки */
+                    height: 22px !important;
+                    padding: 0 6px !important;
                     line-height: 1 !important;
                 }
-                /* Картинки внутри (логотипы 5.1, HD и т.д.) */
+
+                /* Нацеливаемся на графические иконки (логотипы HD, Dolby и др.) */
                 .quality-badge svg, 
                 .applecation__quality-badges svg,
                 .quality-badge img,
                 .applecation__quality-badges img {
-                    height: 12px !important; /* Делаем картинку внутри крупной */
+                    /* Увеличиваем саму иконку внутри, сохраняя пропорции */
+                    height: 18px !important; 
                     width: auto !important;
-                    display: block !important;
                     margin: 0 !important;
-                    object-fit: contain !important;
-                    border: none !important;
                 }
-            </style>`;
-        
+            </style>
+        `;
+
+    
+// ========== ДОПОЛНЕНИЕ: УВЕЛИЧЕНИЕ ИКОНОК 5.1, 2.0, HD ==========
+(function() {
+    try {
+        var customStyles = `
+            <style>
+                /* Нацеливаемся на текстовые иконки (5.1, 2.0, 4K, и т.д.) */
+                .quality-badge, 
+                .applecation__quality-badges span {
+                    display: inline-flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    
+                    /* Увеличиваем только шрифт внутри */
+                    font-size: 16px !important; 
+                    font-weight: 800 !important;
+                    
+                    /* Фиксируем высоту контейнера, чтобы он не раздувался и не двигал другие иконки */
+                    height: 22px !important;
+                    padding: 0 6px !important;
+                    line-height: 1 !important;
+                }
+
+                /* Нацеливаемся на графические иконки (логотипы HD, Dolby и др.) */
+                .quality-badge svg, 
+                .applecation__quality-badges svg,
+                .quality-badge img,
+                .applecation__quality-badges img {
+                    /* Увеличиваем саму иконку внутри, сохраняя пропорции */
+                    height: 18px !important; 
+                    width: auto !important;
+                    margin: 0 !important;
+                }
+            </style>
+        `;
+
+        // Добавляем стили в head документа
         if (typeof $ !== 'undefined') {
-            $('body').append(styleBlock);
+            $('head').append(customStyles);
         } else {
-            var node = document.createElement('div');
-            node.innerHTML = styleBlock;
-            document.body.appendChild(node);
+            var styleEl = document.createElement('div');
+            styleEl.innerHTML = customStyles;
+            document.body.appendChild(styleEl);
         }
     } catch (e) {
-        console.log('Icon size fix error:', e);
+        console.log('Error applying custom icon sizes:', e);
     }
-
 })();
+    
