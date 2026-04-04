@@ -7921,7 +7921,7 @@
                     background: rgba(255, 255, 255, 0.2) !important;
                     border-radius: 12px !important;
                     border: none !important;
-                    font-size: 12px !important; /* Размер текста как у 7.1 */
+                    font-size: 13px !important; /* Размер текста как у 7.1 */
                     font-weight:500!important; /* Жирность */
                     color: #fff !important;
                     line-height: 1 !important;
@@ -7931,7 +7931,7 @@
                 .applecation__quality-badges svg,
                 .quality-badge img,
                 .applecation__quality-badges img {
-                    height: 15px !important; /* Делаем картинку внутри крупной */
+                    height: 13px !important; /* Делаем картинку внутри крупной */
                     width: auto !important;
                     display: block !important;
                     margin: 0 !important;
