@@ -7917,7 +7917,7 @@
                     display: inline-flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    padding: 0 4px !important;
+                    padding: 0 6px !important;
                     background: rgba(255, 255, 255, 0.2) !important;
                     border-radius: 12px !important;
                     border: none !important;
