@@ -7919,7 +7919,7 @@
                     justify-content: center !important;
                     padding: 0 4px !important;
                     background: rgba(255, 255, 255, 0.2) !important;
-                    border-radius: 4px !important;
+                    border-radius: 12px !important;
                     border: none !important;
                     font-size: 12px !important; /* Размер текста как у 7.1 */
                     font-weight:500!important; /* Жирность */
