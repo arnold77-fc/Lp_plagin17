@@ -7899,56 +7899,42 @@
     } else {
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
- // ПРАВИЛЬНАЯ ВСТАВКА ДЛЯ УВЕЛИЧЕНИЯ ИКОНОК
+ // Добавление стилей для увеличения иконок 5.1, 2.0, HD в конец файла
+(function() {
     try {
-        var styleBlock = `
-            <style id="custom-icons-size">
-                .applecation__quality-badges {
-                    display: inline-flex !important;
-                    align-items: center !important;
-                    gap:6px !important;
-                    height: 12px !important;
-                }
-                /* Плашки 5.1, 2.0, 7.1, HD, 4K */
+        var customStyle = `
+            <style>
+                /* Увеличиваем текст и иконки внутри плашек, не меняя размер самих плашек */
                 .quality-badge, 
-                .applecation__quality-badges div,
-                .applecation__meta-item {
-                    height: 12px !important; 
+                .applecation__quality-badges span {
                     display: inline-flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    padding: 6px !important;
-                    background: rgba(255, 255, 255, 0.2) !important;
-                    border-radius: 4px !important;
-                    border: none !important;
-                    font-size: 12px !important; /* Размер текста как у 7.1 */
-                    font-weight:450!important; /* Жирность */
-                    color: #fff !important;
-                    line-height: 1 !important;
+                    height: 22px !important; /* Фиксируем высоту, чтобы не раздувало контейнер */
+                    padding: 0 6px !important;
+                    font-size: 16px !important; /* Увеличиваем размер текста (5.1, 2.0, HD) */
+                    font-weight: 800 !important; /* Делаем текст жирнее */
                 }
-                /* Картинки внутри (логотипы 5.1, HD и т.д.) */
+
+                /* Увеличиваем SVG иконки внутри этих плашек */
                 .quality-badge svg, 
                 .applecation__quality-badges svg,
                 .quality-badge img,
                 .applecation__quality-badges img {
-                    height: 12px !important; /* Делаем картинку внутри крупной */
+                    height: 16px !important; /* Увеличиваем высоту иконки внутри */
                     width: auto !important;
-                    display: block !important;
-                    margin: 0 !important;
-                    object-fit: contain !important;
-                    border: none !important;
                 }
-            </style>`;
-        
+            </style>
+        `;
+
         if (typeof $ !== 'undefined') {
-            $('body').append(styleBlock);
+            $('body').append(customStyle);
         } else {
-            var node = document.createElement('div');
-            node.innerHTML = styleBlock;
-            document.body.appendChild(node);
+            var el = document.createElement('div');
+            el.innerHTML = customStyle;
+            document.body.appendChild(el);
         }
     } catch (e) {
-        console.log('Icon size fix error:', e);
+        console.log('Error adding custom icon styles:', e);
     }
-
 })();
