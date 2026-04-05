@@ -7919,7 +7919,7 @@
                     align-items: center !important;
                     gap: 6px !important;
                     margin-left: 10px !important;
-                    height: 24px !important;
+                    height: 14px !important;
                 }
 
                 /* 2. РИСУЕМ ОДИН ЧИСТЫЙ ОБОДОК ДЛЯ ВСЕХ */
@@ -7928,7 +7928,7 @@
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 20px !important;
+                    height: 14px !important;
                     padding: 0 5px !important;
                     margin: 0 2px !important;
                     border: 1.2px solid rgba(255,255,255,0.6) !important;
