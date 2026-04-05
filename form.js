@@ -7939,21 +7939,32 @@
                     border: none !important;
                 }
 
-                /* Увеличиваем только 5.1, 2.0 и HD */
-                .quality-badge:has(img[src*="5.1"]), 
-                .quality-badge:has(img[src*="2.0"]),
-                .quality-badge:has(img[src*="hd"]),
-                .applecation__quality-badges .quality-badge:has(img[src*="5.1"]),
-                .applecation__quality-badges .quality-badge:has(img[src*="2.0"]),
-                .applecation__quality-badges .quality-badge:has(img[src*="hd"]) {
-                    padding: 4px !important; /* Чуть меньше отступы, чтобы иконка влезла */
+                            /* Увеличиваем размер иконок 5.1, 2.0 и HD внутри ободка */
+                .quality-badge:has(img[src*="5.1"]) img, 
+                .quality-badge:has(img[src*="2.0"]) img,
+                .quality-badge:has(img[src*="hd"]) img,
+                /* Селекторы для более старых версий или других разделов приложения */
+                .applecation__quality-badges .quality-badge:contains("5.1") img,
+                .applecation__quality-badges .quality-badge:contains("2.0") img,
+                .applecation__quality-badges .quality-badge:contains("HD") img {
+                    height: 18px !important; /* Увеличиваем высоту с 12px до 18px */
+                    width: auto !important;
+                    transform: scale(1.1);    /* Дополнительное визуальное расширение */
                 }
 
-                .quality-badge img[src*="5.1"], 
-                .quality-badge img[src*="2.0"],
-                .quality-badge img[src*="hd"] {
-                    height: 18px !important; /* Увеличиваем высоту (было 12px) */
-                    transform: scale(1.1);    /* Дополнительное масштабирование */
+                /* Добавляем жирность и четкость */
+                .quality-badge:has(img[src*="5.1"]), 
+                .quality-badge:has(img[src*="2.0"]),
+                .quality-badge:has(img[src*="hd"]) {
+                    font-weight: 900 !important; /* Максимальная жирность для текстовых подписей */
+                    filter: contrast(1.2) brightness(1.1); /* Делаем иконку четче и ярче */
+                    padding: 4px 6px !important; /* Немного увеличиваем сам ободок, чтобы иконка не теснилась */
+                }
+
+                /* Если иконки 5.1/2.0/HD отрисованы текстом, а не картинкой */
+                .quality-badge--sound, .quality-badge--res {
+                    font-weight: 800 !important;
+                    font-size: 14px !important;
                 }
 
             </style>`;
