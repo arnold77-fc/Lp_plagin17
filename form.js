@@ -7964,7 +7964,7 @@
                 /* Если иконки 5.1/2.0/HD отрисованы текстом, а не картинкой */
                 .quality-badge--sound, .quality-badge--res {
                     font-weight: 800 !important;
-                    font-size: 14px !important;
+                    font-size: 18px !important;
                 }
 
             </style>`;
