@@ -7899,56 +7899,53 @@
     } else {
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
- // ПРАВИЛЬНАЯ ВСТАВКА ДЛЯ УВЕЛИЧЕНИЯ ИКОНОК
-    try {
-        var styleBlock = `
-            <style id="custom-icons-size">
-                .applecation__quality-badges {
-                    display: inline-flex !important;
-                    align-items: center !important;
-                    gap:6px !important;
-                    height: 12px !important;
-                }
-                /* Плашки 5.1, 2.0, 7.1, HD, 4K */
-                .quality-badge, 
-                .applecation__quality-badges div,
-                .applecation__meta-item {
-                    height: 12px !important; 
-                    display: inline-flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    padding: 6px !important;
-                    background: rgba(255, 255, 255, 0.2) !important;
-                    border-radius: 4px !important;
-                    border: none !important;
-                    font-size: 12px !important; /* Размер текста как у 7.1 */
-                    font-weight:450!important; /* Жирность */
-                    color: #fff !important;
-                    line-height: 1 !important;
-                }
-                /* Картинки внутри (логотипы 5.1, HD и т.д.) */
-                .quality-badge svg, 
-                .applecation__quality-badges svg,
-                .quality-badge img,
-                .applecation__quality-badges img {
-                    height: 12px !important; /* Делаем картинку внутри крупной */
-                    width: auto !important;
-                    display: block !important;
-                    margin: 0 !important;
-                    object-fit: contain !important;
-                    border: none !important;
-                }
-            </style>`;
-        
-        if (typeof $ !== 'undefined') {
-            $('body').append(styleBlock);
-        } else {
-            var node = document.createElement('div');
-            node.innerHTML = styleBlock;
-            document.body.appendChild(node);
-        }
-    } catch (e) {
-        console.log('Icon size fix error:', e);
-    }
+ // Вставка кастомных стилей для увеличения иконок 5.1, 2.0 и HD
+(function() {
+    var customBadgeStyles = `
+        <style id="custom-badge-sizes">
+            /* Увеличиваем текстовые метки 5.1, 2.0 и HD */
+            .card__quality:contains("5.1"), 
+            .card__quality:contains("2.0"), 
+            .card__quality:contains("HD"),
+            .card__badge--quality:contains("5.1"),
+            .card__badge--quality:contains("2.0"),
+            .card__badge--quality:contains("HD") {
+                font-size: 16px !important; 
+                padding: 2px 5px !important;
+            }
 
+            /* Если иконки внутри (SVG или IMG), увеличиваем их */
+            /* Находим родительский контейнер, который содержит нужный текст */
+            .quality-badge:has(:contains("5.1")) svg,
+            .quality-badge:has(:contains("2.0")) svg,
+            .quality-badge:has(:contains("HD")) svg,
+            .applecation__quality-badges:has(:contains("5.1")) svg,
+            .applecation__quality-badges:has(:contains("2.0")) svg,
+            .applecation__quality-badges:has(:contains("HD")) svg {
+                height: 18px !important;
+                width: auto !important;
+            }
+
+            /* Фиксируем размер для 4K и HDR, чтобы они не изменились случайно */
+            .card__quality:contains("4K"), 
+            .card__quality:contains("HDR"),
+            .card__badge--quality:contains("4K"),
+            .card__badge--quality:contains("HDR") {
+                font-size: 12px !important;
+            }
+            
+            .quality-badge:has(:contains("4K")) svg,
+            .quality-badge:has(:contains("HDR")) svg {
+                height: 12px !important;
+            }
+        </style>
+    `;
+
+    if (typeof $ !== 'undefined') {
+        $('body').append(customBadgeStyles);
+    } else {
+        var node = document.createElement('div');
+        node.innerHTML = customBadgeStyles;
+        document.body.appendChild(node);
+    }
 })();
