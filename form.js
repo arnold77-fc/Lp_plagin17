@@ -7917,8 +7917,8 @@
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    gap: 4px !important;
-                    margin-left: 4px !important;
+                    gap: 3px !important;
+                    margin-left: 3px !important;
                     height: 15px !important;
                 }
 
@@ -7929,7 +7929,7 @@
                     align-items: center !important;
                     justify-content: center !important;
                     height: 15px !important;
-                    padding: 0 4px !important;
+                    padding: 0 3px !important;
                     margin: 0 2px !important;
                     border: 1.2px solid rgba(255,255,255,0.6) !important;
                     border-radius: 4px !important;
