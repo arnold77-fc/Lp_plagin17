@@ -7917,9 +7917,9 @@
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    gap: 6px !important;
+                    gap: 4px !important;
                     margin-left: 10px !important;
-                    height: 16px !important;
+                    height: 15px !important;
                 }
 
                 /* 2. РИСУЕМ ОДИН ЧИСТЫЙ ОБОДОК ДЛЯ ВСЕХ */
@@ -7928,8 +7928,8 @@
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 16px !important;
-                    padding: 0 5px !important;
+                    height: 15px !important;
+                    padding: 0 4px !important;
                     margin: 0 2px !important;
                     border: 1.2px solid rgba(255,255,255,0.6) !important;
                     border-radius: 4px !important;
@@ -7951,7 +7951,7 @@
                 .quality-badge--res,
                 .quality-badge {
                     font-weight: 900 !important;
-                    font-size: 13px !important;
+                    font-size: 15px !important;
                     color: #fff !important;
                     line-height: 1 !important;
                 }
