@@ -7900,67 +7900,73 @@
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
  
-           var styleBlock = `
+                   var styleBlock = `
             <style id="custom-icons-size">
-                /* Убираем двойные рамки и выравниваем контейнер */
+                /* 1. Убираем системные рамки Lampa у контейнера */
+                .applecation__quality-badges, 
+                .applecation__quality-badges > div {
+                    border: none !important;
+                    background: transparent !important;
+                    box-shadow: none !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    gap: 5px !important;
-                    height: 22px !important;
-                    background: none !important; /* Убираем фон контейнера, если он был */
-                    border: none !important;     /* Убираем внешнюю рамку */
+                    gap: 6px !important;
+                    height: 20px !important;
+                    margin-left: 10px !important;
+                    vertical-align: middle !important;
                 }
 
-                /* Единый стиль для всех плашек (4K, 7.1, 5.1 и т.д.) */
+                /* 2. Создаем один чистый ободок для всех значков */
                 .quality-badge, 
                 .applecation__quality-badges .quality-badge {
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 18px !important; /* Уменьшенный размер ободка */
-                    padding: 0 4px !important;
-                    margin: 0 !important;
-                    border: 1px solid rgba(255,255,255,0.5) !important; /* Тонкая одинарная рамка */
+                    height: 18px !important; /* Уменьшенный размер */
+                    padding: 0 5px !important;
+                    border: 1px solid rgba(255,255,255,0.4) !important; /* Тонкая рамка */
                     border-radius: 3px !important;
-                    background: rgba(0,0,0,0.2) !important;
+                    background: rgba(0,0,0,0.3) !important;
                     box-sizing: border-box !important;
                 }
 
-                /* Стили для иконок 5.1, 2.0, HD */
-                .quality-badge img,
-                .applecation__quality-badges .quality-badge img {
-                    height: 12px !important; /* Компактный размер */
+                /* 3. Увеличиваем жирность и четкость 5.1, 2.0 и HD */
+                .quality-badge img {
+                    height: 11px !important; /* Компактный размер */
                     width: auto !important;
-                    display: block !important;
-                    /* Эффект "жирности" и четкости через фильтры */
-                    filter: brightness(1.5) contrast(2) drop-shadow(0 0 1px rgba(255,255,255,0.8)) !important;
+                    /* Эффект жирности через контраст и резкость */
+                    filter: brightness(1.4) contrast(1.8) saturate(0) !important;
                 }
 
-                /* Если это текстовые иконки */
+                /* 4. Если иконка — это текст (HD/5.1) */
                 .quality-badge--sound, 
                 .quality-badge--res,
                 .quality-badge:contains("5.1"),
                 .quality-badge:contains("2.0"),
                 .quality-badge:contains("HD") {
-                    font-weight: 900 !important;
-                    font-size: 11px !important;
+                    font-weight: 900 !important; /* Максимальная жирность */
+                    font-size: 12px !important;
                     color: #fff !important;
-                    line-height: 1 !important;
-                    text-shadow: 0 0 1px #fff !important; /* Имитация жирности текста */
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
                 }
             </style>`;
 
-        // Безопасная вставка, чтобы не было Script Error
+        // Безопасная вставка (защита от Script Error)
         try {
-            var existingStyle = document.getElementById('custom-icons-size');
-            if (existingStyle) existingStyle.remove();
+            var oldStyle = document.getElementById('custom-icons-size');
+            if (oldStyle) oldStyle.remove();
             
-            var target = document.body || document.documentElement;
-            var styleElement = document.createElement('div');
-            styleElement.innerHTML = styleBlock;
-            target.appendChild(styleElement);
+            var head = document.head || document.getElementsByTagName('head')[0];
+            var styleTag = document.createElement('div');
+            styleTag.innerHTML = styleBlock;
+            if (head) head.appendChild(styleTag);
         } catch (e) {
-            console.log('Lampa Style Fix Error:', e);
-        }               
+            console.log('Style Fix Error:', e);
+        }
 })();
