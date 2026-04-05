@@ -7938,6 +7938,24 @@
                     object-fit: contain !important;
                     border: none !important;
                 }
+
+                /* Увеличиваем только 5.1, 2.0 и HD */
+                .quality-badge:has(img[src*="5.1"]), 
+                .quality-badge:has(img[src*="2.0"]),
+                .quality-badge:has(img[src*="hd"]),
+                .applecation__quality-badges .quality-badge:has(img[src*="5.1"]),
+                .applecation__quality-badges .quality-badge:has(img[src*="2.0"]),
+                .applecation__quality-badges .quality-badge:has(img[src*="hd"]) {
+                    padding: 4px !important; /* Чуть меньше отступы, чтобы иконка влезла */
+                }
+
+                .quality-badge img[src*="5.1"], 
+                .quality-badge img[src*="2.0"],
+                .quality-badge img[src*="hd"] {
+                    height: 18px !important; /* Увеличиваем высоту (было 12px) */
+                    transform: scale(1.1);    /* Дополнительное масштабирование */
+                }
+
             </style>`;
         
         if (typeof $ !== 'undefined') {
