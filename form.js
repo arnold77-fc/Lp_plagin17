@@ -7900,52 +7900,55 @@
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
  
-        var styleBlock = `
+        
+                var styleBlock = `
             <style id="custom-icons-size">
+                /* Контейнер для значков */
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    gap: 8px !important;
-                    height: auto !important; /* Убираем жесткое ограничение высоты контейнера */
+                    gap: 6px !important;
+                    height: 26px !important; /* Фиксируем высоту контейнера */
                     margin-left: 10px !important;
                     vertical-align: middle !important;
                 }
 
-                /* Общие стили для всех плашек качества и звука */
+                /* Общий стиль ободка (плашки) */
                 .quality-badge, 
                 .applecation__quality-badges .quality-badge {
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 22px !important; /* Увеличиваем высоту ободка */
+                    height: 22px !important; /* Высота ободка как у 4K/7.1 */
                     padding: 0 6px !important;
-                    border: 1.5px solid rgba(255,255,255,0.6) !important;
+                    border: 1.2px solid rgba(255,255,255,0.7) !important;
                     border-radius: 4px !important;
-                    background: rgba(0,0,0,0.3) !important;
+                    background: rgba(0,0,0,0.4) !important;
+                    box-sizing: border-box !important;
                 }
 
-                /* Стили для иконок внутри (5.1, 2.0, HD) */
+                /* Увеличение картинок внутри (5.1, 2.0, HD) */
                 .quality-badge img,
                 .applecation__quality-badges .quality-badge img {
-                    height: 16px !important; /* Делаем саму иконку крупнее */
+                    height: 16px !important; /* Увеличиваем размер самой иконки */
                     width: auto !important;
                     display: block !important;
                     filter: brightness(1.2) contrast(1.1) !important; /* Делаем четче */
                 }
 
-                /* Если иконки отрисованы текстом */
+                /* Если 5.1, 2.0 или HD отображаются текстом */
                 .quality-badge--sound, 
                 .quality-badge--res,
                 .quality-badge:contains("5.1"),
                 .quality-badge:contains("2.0"),
                 .quality-badge:contains("HD") {
                     font-weight: 900 !important;
-                    font-size: 14px !important; /* Размер шрифта для текстовых меток */
+                    font-size: 13px !important; /* Крупный шрифт для мелких меток */
                     color: #fff !important;
                     line-height: 1 !important;
                 }
             </style>`;
-        
+
         if (typeof $ !== 'undefined') {
             $('body').append(styleBlock);
         } else {
