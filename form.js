@@ -7899,66 +7899,65 @@
     } else {
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
-        var styleBlock = `
+         var styleBlock = `
             <style id="custom-icons-size">
-                /* 1. УДАЛЯЕМ ВНЕШНИЙ СЕРЫЙ ПРЯМОУГОЛЬНИК (ДВОЙНОЙ ОБОДОК) */
+                /* 1. ПОЛНОСТЬЮ УБИРАЕМ ВНЕШНИЙ ОБОДОК И ФОН КОНТЕЙНЕРА */
                 .applecation__quality-badges,
-                .applecation__quality-badges > div,
-                .applecation__quality-badges .quality-badge--sound,
-                .applecation__quality-badges .quality-badge--res {
+                .applecation__quality-badges div,
+                .applecation__quality-badges span {
                     border: none !important;
-                    background: transparent !important;
+                    background: none !important;
+                    background-color: transparent !important;
                     box-shadow: none !important;
+                    outline: none !important;
                     padding: 0 !important;
                     margin: 0 !important;
-                    outline: none !important;
                 }
 
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
                     gap: 6px !important;
-                    height: 26px !important;
                     margin-left: 10px !important;
+                    height: 24px !important;
                 }
 
-                /* 2. РИСУЕМ ОДИН ЧИСТЫЙ ОБОДОК ДЛЯ ВСЕХ (4K, HDR, 5.1, 2.0, HD) */
+                /* 2. РИСУЕМ ОДИН ЧИСТЫЙ ОБОДОК ДЛЯ ВСЕХ */
                 .quality-badge, 
-                .applecation__quality-badges .quality-badge,
-                div[class*="quality-badge"] {
+                .applecation__quality-badges .quality-badge {
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 20px !important; /* Высота рамки */
-                    padding: 0 6px !important;
-                    border: 1.5px solid rgba(255,255,255,0.7) !important; /* Четкая одиночная рамка */
+                    height: 20px !important;
+                    padding: 0 5px !important;
+                    margin: 0 2px !important;
+                    border: 1.2px solid rgba(255,255,255,0.6) !important;
                     border-radius: 4px !important;
                     background: rgba(0,0,0,0.4) !important;
                     box-sizing: border-box !important;
                 }
 
-                /* 3. УВЕЛИЧИВАЕМ ИКОНКИ ВНУТРИ И ДЕЛАЕМ ИХ ЖИРНЫМИ */
-                .quality-badge img,
-                .applecation__quality-badges .quality-badge img {
-                    height: 14px !important; /* Размер самой иконки внутри */
+                /* 3. УВЕЛИЧИВАЕМ 5.1, 2.0 И HD ВНУТРИ (ЖИРНЕЕ И БОЛЬШЕ) */
+                .quality-badge img {
+                    height: 15px !important; /* Увеличили размер внутри */
                     width: auto !important;
                     display: block !important;
-                    /* Фильтры для эффекта жирности и яркости */
-                    filter: brightness(1.5) contrast(2) drop-shadow(0 0 0.5px #fff) !important;
+                    /* Эффект жирности и четкости */
+                    filter: brightness(1.4) contrast(1.5) drop-shadow(0 0 0.5px #fff) !important;
                 }
 
-                /* 4. СПЕЦИАЛЬНО ДЛЯ HDR, DUB И ТЕКСТА */
+                /* 4. ТЕКСТОВЫЕ МЕТКИ (HDR, DUB И Т.Д.) */
                 .quality-badge--sound, 
                 .quality-badge--res,
                 .quality-badge {
                     font-weight: 900 !important;
                     font-size: 13px !important;
                     color: #fff !important;
-                    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.8) !important;
+                    line-height: 1 !important;
                 }
             </style>`;
 
-        // Безопасная вставка, исправляющая Script Error на Android
+        // Безопасная вставка
         try {
             var oldStyle = document.getElementById('custom-icons-size');
             if (oldStyle) oldStyle.remove();
@@ -7969,5 +7968,5 @@
             document.body.appendChild(styleElement);
         } catch (e) {
             console.error('Lampa CSS Fix Error:', e);
-        }         
+        }                
 })();
