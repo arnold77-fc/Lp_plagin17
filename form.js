@@ -7922,7 +7922,7 @@
                     border-radius: 4px !important;
                     border: none !important;
                     font-size: 15px !important; /* Размер текста как у 7.1 */
-                    font-weight:450!important; /* Жирность */
+                    font-weight:500!important; /* Жирность */
                     color: #fff !important;
                     line-height: 1 !important;
                 }
