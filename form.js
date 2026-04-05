@@ -7900,12 +7900,15 @@
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
  
-                   var styleBlock = `
+                var styleBlock = `
             <style id="custom-icons-size">
-                /* 1. Убираем системные рамки Lampa у контейнера */
-                .applecation__quality-badges, 
-                .applecation__quality-badges > div {
+                /* 1. ПОЛНОЕ УДАЛЕНИЕ ВНЕШНИХ РАМОК (убираем "двойной" эффект) */
+                .applecation__quality-badges,
+                .applecation__quality-badges > div,
+                .applecation__quality-badges .quality-badge--sound,
+                .applecation__quality-badges .quality-badge--res {
                     border: none !important;
+                    outline: none !important;
                     background: transparent !important;
                     box-shadow: none !important;
                     padding: 0 !important;
@@ -7916,57 +7919,58 @@
                     display: inline-flex !important;
                     align-items: center !important;
                     gap: 6px !important;
-                    height: 20px !important;
+                    height: 24px !important;
                     margin-left: 10px !important;
-                    vertical-align: middle !important;
                 }
 
-                /* 2. Создаем один чистый ободок для всех значков */
+                /* 2. СОЗДАЕМ ОДИН ЕДИНЫЙ ОБОДОК ДЛЯ ВСЕХ */
+                /* Принудительно применяем ко всем типам плашек: 5.1, 2.0, HD, HDR, DUB */
                 .quality-badge, 
-                .applecation__quality-badges .quality-badge {
+                .applecation__quality-badges div[class*="quality-badge"] {
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 18px !important; /* Уменьшенный размер */
+                    height: 20px !important; /* Общая высота для всех */
+                    min-width: 32px !important;
                     padding: 0 5px !important;
-                    border: 1px solid rgba(255,255,255,0.4) !important; /* Тонкая рамка */
-                    border-radius: 3px !important;
+                    border: 1.2px solid rgba(255,255,255,0.6) !important; /* Единственная рамка */
+                    border-radius: 4px !important;
                     background: rgba(0,0,0,0.3) !important;
                     box-sizing: border-box !important;
                 }
 
-                /* 3. Увеличиваем жирность и четкость 5.1, 2.0 и HD */
-                .quality-badge img {
-                    height: 18px !important; /* Компактный размер */
+                /* 3. УВЕЛИЧИВАЕМ ИКОНКИ ВНУТРИ (5.1, 2.0, HD и др.) */
+                .quality-badge img,
+                .applecation__quality-badges div[class*="quality-badge"] img {
+                    height: 15px !important; /* Делаем саму картинку крупнее */
                     width: auto !important;
-                    /* Эффект жирности через контраст и резкость */
-                    filter: brightness(1.4) contrast(1.8) saturate(0) !important;
+                    display: block !important;
+                    /* Увеличиваем жирность через фильтры */
+                    filter: brightness(1.2) contrast(1.5) drop-shadow(0 0 0.5px #fff) !important;
                 }
 
-                /* 4. Если иконка — это текст (HD/5.1) */
+                /* 4. ЖИРНОСТЬ ДЛЯ ТЕКСТОВЫХ ЭЛЕМЕНТОВ (если HDR или DUB текстом) */
                 .quality-badge--sound, 
                 .quality-badge--res,
-                .quality-badge:contains("5.1"),
-                .quality-badge:contains("2.0"),
-                .quality-badge:contains("HD") {
-                    font-weight: 900 !important; /* Максимальная жирность */
-                    font-size: 18px !important;
+                .quality-badge {
+                    font-weight: 900 !important; /* Максимально жирный */
+                    font-size: 13px !important;
                     color: #fff !important;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
+                    line-height: 1 !important;
+                    text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.5) !important;
                 }
             </style>`;
 
-        // Безопасная вставка (защита от Script Error)
+        // Безопасная вставка для Android Lampa
         try {
             var oldStyle = document.getElementById('custom-icons-size');
-            if (oldStyle) oldStyle.remove();
+            if (oldStyle) oldStyle.parentNode.removeChild(oldStyle);
             
-            var head = document.head || document.getElementsByTagName('head')[0];
             var styleTag = document.createElement('div');
+            styleTag.id = 'custom-icons-size';
             styleTag.innerHTML = styleBlock;
-            if (head) head.appendChild(styleTag);
+            document.body.appendChild(styleTag);
         } catch (e) {
-            console.log('Style Fix Error:', e);
-        }
+            console.log('Style Injection Error:', e);
+        }   
 })();
