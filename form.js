@@ -7899,58 +7899,75 @@
     } else {
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
-         // БЕЗОПАСНЫЙ ВОЗВРАТ ИКОНОК
         var styleBlock = `
             <style id="custom-icons-size">
-                /* 1. Возвращаем видимость всем контейнерам */
+                /* 1. УДАЛЯЕМ ВНЕШНИЙ СЕРЫЙ ПРЯМОУГОЛЬНИК (ДВОЙНОЙ ОБОДОК) */
+                .applecation__quality-badges,
+                .applecation__quality-badges > div,
+                .applecation__quality-badges .quality-badge--sound,
+                .applecation__quality-badges .quality-badge--res {
+                    border: none !important;
+                    background: transparent !important;
+                    box-shadow: none !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                    outline: none !important;
+                }
+
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    gap: 5px !important;
+                    gap: 6px !important;
+                    height: 26px !important;
                     margin-left: 10px !important;
-                    height: 24px !important;
                 }
 
-                /* 2. Стандартный ободок (как в оригинале Лампы) */
-                .quality-badge {
+                /* 2. РИСУЕМ ОДИН ЧИСТЫЙ ОБОДОК ДЛЯ ВСЕХ (4K, HDR, 5.1, 2.0, HD) */
+                .quality-badge, 
+                .applecation__quality-badges .quality-badge,
+                div[class*="quality-badge"] {
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 20px !important;
-                    padding: 0 4px !important;
-                    border: 1px solid rgba(255,255,255,0.4) !important;
-                    border-radius: 3px !important;
-                    background: rgba(0,0,0,0.3) !important;
+                    height: 20px !important; /* Высота рамки */
+                    padding: 0 6px !important;
+                    border: 1.5px solid rgba(255,255,255,0.7) !important; /* Четкая одиночная рамка */
+                    border-radius: 4px !important;
+                    background: rgba(0,0,0,0.4) !important;
+                    box-sizing: border-box !important;
                 }
 
-                /* 3. УВЕЛИЧИВАЕМ ТОЛЬКО ВНУТРЕННИЕ ИКОНКИ 5.1, 2.0, HD */
-                /* Ищем картинки, в названии которых есть 5.1, 2.0 или hd */
-                .quality-badge img[src*="5.1"], 
-                .quality-badge img[src*="2.0"], 
-                .quality-badge img[src*="hd"] {
-                    height: 15px !important; /* Делаем крупнее */
+                /* 3. УВЕЛИЧИВАЕМ ИКОНКИ ВНУТРИ И ДЕЛАЕМ ИХ ЖИРНЫМИ */
+                .quality-badge img,
+                .applecation__quality-badges .quality-badge img {
+                    height: 14px !important; /* Размер самой иконки внутри */
                     width: auto !important;
-                    transform: scale(1.1) !important; /* Немного расширяем */
-                    filter: brightness(1.2) contrast(1.2) !important; /* Делаем чётче */
+                    display: block !important;
+                    /* Фильтры для эффекта жирности и яркости */
+                    filter: brightness(1.5) contrast(2) drop-shadow(0 0 0.5px #fff) !important;
                 }
 
-                /* 4. Для текстовых иконок (HDR, DUB) */
-                .quality-badge--sound, .quality-badge--res {
-                    font-weight: bold !important;
+                /* 4. СПЕЦИАЛЬНО ДЛЯ HDR, DUB И ТЕКСТА */
+                .quality-badge--sound, 
+                .quality-badge--res,
+                .quality-badge {
+                    font-weight: 900 !important;
                     font-size: 13px !important;
+                    color: #fff !important;
+                    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.8) !important;
                 }
             </style>`;
 
-        // Простая вставка без агрессивной очистки
+        // Безопасная вставка, исправляющая Script Error на Android
         try {
-            var old = document.getElementById('custom-icons-size');
-            if (old) old.remove();
+            var oldStyle = document.getElementById('custom-icons-size');
+            if (oldStyle) oldStyle.remove();
             
-            var node = document.createElement('div');
-            node.innerHTML = styleBlock;
-            document.body.appendChild(node);
+            var styleElement = document.createElement('div');
+            styleElement.id = 'custom-icons-size';
+            styleElement.innerHTML = styleBlock;
+            document.body.appendChild(styleElement);
         } catch (e) {
-            // Если возникла ошибка, просто выводим в консоль, не ломая скрипт
-            console.log('Restore error:', e);
-        }       
+            console.error('Lampa CSS Fix Error:', e);
+        }         
 })();
