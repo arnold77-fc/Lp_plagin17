@@ -7900,66 +7900,67 @@
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
  
-                 var styleBlock = `
+           var styleBlock = `
             <style id="custom-icons-size">
-                /* Основной контейнер плашек качества */
+                /* Убираем двойные рамки и выравниваем контейнер */
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    gap: 8px !important;
-                    height: 28px !important; /* Увеличиваем высоту контейнера */
-                    margin-left: 10px !important;
-                    vertical-align: middle !important;
+                    gap: 5px !important;
+                    height: 22px !important;
+                    background: none !important; /* Убираем фон контейнера, если он был */
+                    border: none !important;     /* Убираем внешнюю рамку */
                 }
 
-                /* Единый стиль для всех ободков (рамок) */
+                /* Единый стиль для всех плашек (4K, 7.1, 5.1 и т.д.) */
                 .quality-badge, 
                 .applecation__quality-badges .quality-badge {
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 24px !important; /* Делаем ободок 5.1/2.0 таким же как 4K/7.1 */
-                    min-width: 35px !important;
-                    padding: 0 8px !important;
-                    border: 1.5px solid rgba(255,255,255,0.8) !important;
-                    border-radius: 5px !important;
-                    background: rgba(255,255,255,0.1) !important;
+                    height: 18px !important; /* Уменьшенный размер ободка */
+                    padding: 0 4px !important;
+                    margin: 0 !important;
+                    border: 1px solid rgba(255,255,255,0.5) !important; /* Тонкая одинарная рамка */
+                    border-radius: 3px !important;
+                    background: rgba(0,0,0,0.2) !important;
                     box-sizing: border-box !important;
                 }
 
-                /* Увеличение иконок внутри (5.1, 2.0, HD) */
+                /* Стили для иконок 5.1, 2.0, HD */
                 .quality-badge img,
-                .applecation__quality-badges .quality-badge img,
-                .quality-badge[class*="5.1"] img,
-                .quality-badge[class*="2.0"] img {
-                    height: 18px !important; /* Было ~12px, теперь 18px */
+                .applecation__quality-badges .quality-badge img {
+                    height: 12px !important; /* Компактный размер */
                     width: auto !important;
                     display: block !important;
-                    filter: brightness(1.3) !important; /* Делаем значки ярче */
+                    /* Эффект "жирности" и четкости через фильтры */
+                    filter: brightness(1.5) contrast(2) drop-shadow(0 0 1px rgba(255,255,255,0.8)) !important;
                 }
 
-                /* Если HD или звук отображаются текстом */
+                /* Если это текстовые иконки */
                 .quality-badge--sound, 
                 .quality-badge--res,
                 .quality-badge:contains("5.1"),
                 .quality-badge:contains("2.0"),
                 .quality-badge:contains("HD") {
                     font-weight: 900 !important;
-                    font-size: 15px !important; /* Крупный текст */
+                    font-size: 11px !important;
+                    color: #fff !important;
                     line-height: 1 !important;
+                    text-shadow: 0 0 1px #fff !important; /* Имитация жирности текста */
                 }
             </style>`;
 
-        // Безопасная вставка стиля (исправляет Script Error)
+        // Безопасная вставка, чтобы не было Script Error
         try {
-            if (typeof $ !== 'undefined' && $('body').length) {
-                $('body').append(styleBlock);
-            } else {
-                var node = document.createElement('div');
-                node.innerHTML = styleBlock;
-                document.body.appendChild(node);
-            }
+            var existingStyle = document.getElementById('custom-icons-size');
+            if (existingStyle) existingStyle.remove();
+            
+            var target = document.body || document.documentElement;
+            var styleElement = document.createElement('div');
+            styleElement.innerHTML = styleBlock;
+            target.appendChild(styleElement);
         } catch (e) {
-            console.log('Style injection error:', e);
-        }
+            console.log('Lampa Style Fix Error:', e);
+        }               
 })();
