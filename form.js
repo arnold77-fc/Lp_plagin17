@@ -7918,7 +7918,7 @@
                     display: inline-flex !important;
                     align-items: center !important;
                     gap: 4px !important;
-                    margin-left: 6px !important;
+                    margin-left: 4px !important;
                     height: 15px !important;
                 }
 
