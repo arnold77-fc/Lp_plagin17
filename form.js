@@ -7937,7 +7937,7 @@
 
                 /* 3. Увеличиваем жирность и четкость 5.1, 2.0 и HD */
                 .quality-badge img {
-                    height: 11px !important; /* Компактный размер */
+                    height: 18px !important; /* Компактный размер */
                     width: auto !important;
                     /* Эффект жирности через контраст и резкость */
                     filter: brightness(1.4) contrast(1.8) saturate(0) !important;
@@ -7950,7 +7950,7 @@
                 .quality-badge:contains("2.0"),
                 .quality-badge:contains("HD") {
                     font-weight: 900 !important; /* Максимальная жирность */
-                    font-size: 12px !important;
+                    font-size: 18px !important;
                     color: #fff !important;
                     text-transform: uppercase;
                     letter-spacing: 0.5px;
