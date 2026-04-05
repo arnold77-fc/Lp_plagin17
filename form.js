@@ -7901,51 +7901,51 @@
     }
  // Вставка кастомных стилей для увеличения иконок 5.1, 2.0 и HD
 (function() {
-    var customBadgeStyles = `
-        <style id="custom-badge-sizes">
-            /* Увеличиваем текстовые метки 5.1, 2.0 и HD */
-            .card__quality:contains("5.1"), 
-            .card__quality:contains("2.0"), 
-            .card__quality:contains("HD"),
-            .card__badge--quality:contains("5.1"),
-            .card__badge--quality:contains("2.0"),
-            .card__badge--quality:contains("HD") {
-                font-size: 16px !important; 
-                padding: 2px 5px !important;
-            }
+    try {
+        var customStyleId = 'flixio-custom-zoom';
+        if (!document.getElementById(customStyleId)) {
+            var style = document.createElement('style');
+            style.id = customStyleId;
+            style.textContent = `
+                /* Увеличиваем плашки с текстом 5.1, 2.0 и HD */
+                .quality-badge--sound,
+                .quality-badge--hd {
+                    font-size: 16px !important;
+                    padding: 4px 8px !important;
+                    height: auto !important;
+                }
 
-            /* Если иконки внутри (SVG или IMG), увеличиваем их */
-            /* Находим родительский контейнер, который содержит нужный текст */
-            .quality-badge:has(:contains("5.1")) svg,
-            .quality-badge:has(:contains("2.0")) svg,
-            .quality-badge:has(:contains("HD")) svg,
-            .applecation__quality-badges:has(:contains("5.1")) svg,
-            .applecation__quality-badges:has(:contains("2.0")) svg,
-            .applecation__quality-badges:has(:contains("HD")) svg {
-                height: 18px !important;
-                width: auto !important;
-            }
+                /* Если внутри есть SVG (логотипы), делаем их крупнее */
+                .quality-badge--sound svg,
+                .quality-badge--hd svg {
+                    height: 18px !important;
+                    width: auto !important;
+                }
 
-            /* Фиксируем размер для 4K и HDR, чтобы они не изменились случайно */
-            .card__quality:contains("4K"), 
-            .card__quality:contains("HDR"),
-            .card__badge--quality:contains("4K"),
-            .card__badge--quality:contains("HDR") {
-                font-size: 12px !important;
-            }
-            
-            .quality-badge:has(:contains("4K")) svg,
-            .quality-badge:has(:contains("HDR")) svg {
-                height: 12px !important;
-            }
-        </style>
-    `;
+                /* Гарантируем, что 4K и HDR не изменятся (останутся 12px) */
+                .quality-badge--hdr,
+                .quality-badge--4k,
+                .card__badge--quality:not(.quality-badge--sound):not(.quality-badge--hd) {
+                    font-size: 12px !important;
+                    height: 12px !important;
+                }
+            `;
+            document.body.appendChild(style);
+        }
 
-    if (typeof $ !== 'undefined') {
-        $('body').append(customBadgeStyles);
-    } else {
-        var node = document.createElement('div');
-        node.innerHTML = customBadgeStyles;
-        document.body.appendChild(node);
+        // Скрипт для поиска текстовых меток (совместимый с Android WebView)
+        if (typeof $ !== 'undefined') {
+            $('.card__badge--quality').each(function() {
+                var txt = $(this).text().toUpperCase();
+                if (txt === '5.1' || txt === '2.0' || txt === 'HD') {
+                    $(this).css({
+                        'font-size': '16px',
+                        'padding': '4px 8px'
+                    });
+                }
+            });
+        }
+    } catch (e) {
+        console.log('Zoom styles error:', e);
     }
 })();
