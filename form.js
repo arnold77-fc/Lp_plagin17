@@ -7899,74 +7899,51 @@
     } else {
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
- // ПРАВИЛЬНАЯ ВСТАВКА ДЛЯ УВЕЛИЧЕНИЯ ИКОНОК
-    try {
+ 
         var styleBlock = `
             <style id="custom-icons-size">
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    gap:6px !important;
-                    height: 12px !important;
+                    gap: 8px !important;
+                    height: auto !important; /* Убираем жесткое ограничение высоты контейнера */
+                    margin-left: 10px !important;
+                    vertical-align: middle !important;
                 }
-                /* Плашки 5.1, 2.0, 7.1, HD, 4K */
+
+                /* Общие стили для всех плашек качества и звука */
                 .quality-badge, 
-                .applecation__quality-badges div,
-                .applecation__meta-item {
-                    height: 12px !important; 
-                    display: inline-flex !important;
+                .applecation__quality-badges .quality-badge {
+                    display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    padding: 6px !important;
-                    background: rgba(255, 255, 255, 0.2) !important;
+                    height: 22px !important; /* Увеличиваем высоту ободка */
+                    padding: 0 6px !important;
+                    border: 1.5px solid rgba(255,255,255,0.6) !important;
                     border-radius: 4px !important;
-                    border: none !important;
-                    font-size: 12px !important; /* Размер текста как у 7.1 */
-                    font-weight:450!important; /* Жирность */
+                    background: rgba(0,0,0,0.3) !important;
+                }
+
+                /* Стили для иконок внутри (5.1, 2.0, HD) */
+                .quality-badge img,
+                .applecation__quality-badges .quality-badge img {
+                    height: 16px !important; /* Делаем саму иконку крупнее */
+                    width: auto !important;
+                    display: block !important;
+                    filter: brightness(1.2) contrast(1.1) !important; /* Делаем четче */
+                }
+
+                /* Если иконки отрисованы текстом */
+                .quality-badge--sound, 
+                .quality-badge--res,
+                .quality-badge:contains("5.1"),
+                .quality-badge:contains("2.0"),
+                .quality-badge:contains("HD") {
+                    font-weight: 900 !important;
+                    font-size: 14px !important; /* Размер шрифта для текстовых меток */
                     color: #fff !important;
                     line-height: 1 !important;
                 }
-                /* Картинки внутри (логотипы 5.1, HD и т.д.) */
-                .quality-badge svg, 
-                .applecation__quality-badges svg,
-                .quality-badge img,
-                .applecation__quality-badges img {
-                    height: 12px !important; /* Делаем картинку внутри крупной */
-                    width: auto !important;
-                    display: block !important;
-                    margin: 0 !important;
-                    object-fit: contain !important;
-                    border: none !important;
-                }
-
-                            /* Увеличиваем размер иконок 5.1, 2.0 и HD внутри ободка */
-                .quality-badge:has(img[src*="5.1"]) img, 
-                .quality-badge:has(img[src*="2.0"]) img,
-                .quality-badge:has(img[src*="hd"]) img,
-                /* Селекторы для более старых версий или других разделов приложения */
-                .applecation__quality-badges .quality-badge:contains("5.1") img,
-                .applecation__quality-badges .quality-badge:contains("2.0") img,
-                .applecation__quality-badges .quality-badge:contains("HD") img {
-                    height: 18px !important; /* Увеличиваем высоту с 12px до 18px */
-                    width: auto !important;
-                    transform: scale(1.1);    /* Дополнительное визуальное расширение */
-                }
-
-                /* Добавляем жирность и четкость */
-                .quality-badge:has(img[src*="5.1"]), 
-                .quality-badge:has(img[src*="2.0"]),
-                .quality-badge:has(img[src*="hd"]) {
-                    font-weight: 900 !important; /* Максимальная жирность для текстовых подписей */
-                    filter: contrast(1.2) brightness(1.1); /* Делаем иконку четче и ярче */
-                    padding: 4px 6px !important; /* Немного увеличиваем сам ободок, чтобы иконка не теснилась */
-                }
-
-                /* Если иконки 5.1/2.0/HD отрисованы текстом, а не картинкой */
-                .quality-badge--sound, .quality-badge--res {
-                    font-weight: 800 !important;
-                    font-size: 18px !important;
-                }
-
             </style>`;
         
         if (typeof $ !== 'undefined') {
