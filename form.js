@@ -7899,53 +7899,37 @@
     } else {
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
- // Вставка кастомных стилей для увеличения иконок 5.1, 2.0 и HD
+// Увеличение иконок 5.1, 2.0 и HD без затрагивания 4K и HDR
 (function() {
     try {
-        var customStyleId = 'flixio-custom-zoom';
-        if (!document.getElementById(customStyleId)) {
-            var style = document.createElement('style');
-            style.id = customStyleId;
-            style.textContent = `
-                /* Увеличиваем плашки с текстом 5.1, 2.0 и HD */
-                .quality-badge--sound,
-                .quality-badge--hd {
-                    font-size: 16px !important;
-                    padding: 4px 8px !important;
-                    height: auto !important;
-                }
-
-                /* Если внутри есть SVG (логотипы), делаем их крупнее */
-                .quality-badge--sound svg,
-                .quality-badge--hd svg {
-                    height: 18px !important;
-                    width: auto !important;
-                }
-
-                /* Гарантируем, что 4K и HDR не изменятся (останутся 12px) */
-                .quality-badge--hdr,
-                .quality-badge--4k,
-                .card__badge--quality:not(.quality-badge--sound):not(.quality-badge--hd) {
-                    font-size: 12px !important;
-                    height: 12px !important;
-                }
-            `;
-            document.body.appendChild(style);
-        }
-
-        // Скрипт для поиска текстовых меток (совместимый с Android WebView)
-        if (typeof $ !== 'undefined') {
-            $('.card__badge--quality').each(function() {
-                var txt = $(this).text().toUpperCase();
-                if (txt === '5.1' || txt === '2.0' || txt === 'HD') {
-                    $(this).css({
-                        'font-size': '16px',
-                        'padding': '4px 8px'
-                    });
-                }
-            });
+        var styleId = 'flixio-zoom-fix';
+        if (!document.getElementById(styleId)) {
+            var customStyle = document.createElement('style');
+            customStyle.id = styleId;
+            // Используем только базовые селекторы, которые точно есть в вашем коде
+            customStyle.textContent = 
+                /* Увеличиваем контейнер для звука (5.1, 2.0) и HD */
+                '.quality-badge--sound, .quality-badge--hd { ' +
+                '   font-size: 16px !important; ' +
+                '   height: auto !important; ' +
+                '   padding: 4px 6px !important; ' +
+                '} ' +
+                /* Увеличиваем SVG внутри этих контейнеров */
+                '.quality-badge--sound svg, .quality-badge--hd svg { ' +
+                '   height: 18px !important; ' +
+                '   width: auto !important; ' +
+                '} ' +
+                /* Оставляем 4K и HDR стандартными (12px) */
+                '.quality-badge--res, .quality-badge--hdr { ' +
+                '   font-size: 12px !important; ' +
+                '} ' +
+                '.quality-badge--res svg, .quality-badge--hdr svg { ' +
+                '   height: 12px !important; ' +
+                '}';
+            document.head.appendChild(customStyle);
         }
     } catch (e) {
-        console.log('Zoom styles error:', e);
+        console.log('Zoom error:', e);
     }
 })();
+ 
