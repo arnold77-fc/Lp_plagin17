@@ -7919,7 +7919,7 @@
                     align-items: center !important;
                     gap: 6px !important;
                     margin-left: 10px !important;
-                    height: 14px !important;
+                    height: 16px !important;
                 }
 
                 /* 2. РИСУЕМ ОДИН ЧИСТЫЙ ОБОДОК ДЛЯ ВСЕХ */
@@ -7928,7 +7928,7 @@
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 14px !important;
+                    height: 16px !important;
                     padding: 0 5px !important;
                     margin: 0 2px !important;
                     border: 1.2px solid rgba(255,255,255,0.6) !important;
@@ -7939,7 +7939,7 @@
 
                 /* 3. УВЕЛИЧИВАЕМ 5.1, 2.0 И HD ВНУТРИ (ЖИРНЕЕ И БОЛЬШЕ) */
                 .quality-badge img {
-                    height: 15px !important; /* Увеличили размер внутри */
+                    height: 20px !important; /* Увеличили размер внутри */
                     width: auto !important;
                     display: block !important;
                     /* Эффект жирности и четкости */
