@@ -7900,64 +7900,66 @@
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
  
-        
-                var styleBlock = `
+                 var styleBlock = `
             <style id="custom-icons-size">
-                /* Контейнер для значков */
+                /* Основной контейнер плашек качества */
                 .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    gap: 6px !important;
-                    height: 26px !important; /* Фиксируем высоту контейнера */
+                    gap: 8px !important;
+                    height: 28px !important; /* Увеличиваем высоту контейнера */
                     margin-left: 10px !important;
                     vertical-align: middle !important;
                 }
 
-                /* Общий стиль ободка (плашки) */
+                /* Единый стиль для всех ободков (рамок) */
                 .quality-badge, 
                 .applecation__quality-badges .quality-badge {
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 22px !important; /* Высота ободка как у 4K/7.1 */
-                    padding: 0 6px !important;
-                    border: 1.2px solid rgba(255,255,255,0.7) !important;
-                    border-radius: 4px !important;
-                    background: rgba(0,0,0,0.4) !important;
+                    height: 24px !important; /* Делаем ободок 5.1/2.0 таким же как 4K/7.1 */
+                    min-width: 35px !important;
+                    padding: 0 8px !important;
+                    border: 1.5px solid rgba(255,255,255,0.8) !important;
+                    border-radius: 5px !important;
+                    background: rgba(255,255,255,0.1) !important;
                     box-sizing: border-box !important;
                 }
 
-                /* Увеличение картинок внутри (5.1, 2.0, HD) */
+                /* Увеличение иконок внутри (5.1, 2.0, HD) */
                 .quality-badge img,
-                .applecation__quality-badges .quality-badge img {
-                    height: 16px !important; /* Увеличиваем размер самой иконки */
+                .applecation__quality-badges .quality-badge img,
+                .quality-badge[class*="5.1"] img,
+                .quality-badge[class*="2.0"] img {
+                    height: 18px !important; /* Было ~12px, теперь 18px */
                     width: auto !important;
                     display: block !important;
-                    filter: brightness(1.2) contrast(1.1) !important; /* Делаем четче */
+                    filter: brightness(1.3) !important; /* Делаем значки ярче */
                 }
 
-                /* Если 5.1, 2.0 или HD отображаются текстом */
+                /* Если HD или звук отображаются текстом */
                 .quality-badge--sound, 
                 .quality-badge--res,
                 .quality-badge:contains("5.1"),
                 .quality-badge:contains("2.0"),
                 .quality-badge:contains("HD") {
                     font-weight: 900 !important;
-                    font-size: 13px !important; /* Крупный шрифт для мелких меток */
-                    color: #fff !important;
+                    font-size: 15px !important; /* Крупный текст */
                     line-height: 1 !important;
                 }
             </style>`;
 
-        if (typeof $ !== 'undefined') {
-            $('body').append(styleBlock);
-        } else {
-            var node = document.createElement('div');
-            node.innerHTML = styleBlock;
-            document.body.appendChild(node);
+        // Безопасная вставка стиля (исправляет Script Error)
+        try {
+            if (typeof $ !== 'undefined' && $('body').length) {
+                $('body').append(styleBlock);
+            } else {
+                var node = document.createElement('div');
+                node.innerHTML = styleBlock;
+                document.body.appendChild(node);
+            }
+        } catch (e) {
+            console.log('Style injection error:', e);
         }
-    } catch (e) {
-        console.log('Icon size fix error:', e);
-    }
-
 })();
