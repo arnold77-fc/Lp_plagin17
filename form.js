@@ -7899,60 +7899,58 @@
     } else {
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
+         // БЕЗОПАСНЫЙ ВОЗВРАТ ИКОНОК
         var styleBlock = `
             <style id="custom-icons-size">
-                /* 1. Полный сброс внешних контейнеров, чтобы убрать двойную рамку */
-                .applecation__quality-badges,
-                .applecation__quality-badges > div {
-                    background: none !important;
-                    border: none !important;
-                    box-shadow: none !important;
-                    padding: 0 !important;
-                    margin: 0 0 0 10px !important;
+                /* 1. Возвращаем видимость всем контейнерам */
+                .applecation__quality-badges {
                     display: inline-flex !important;
                     align-items: center !important;
-                    height: auto !important;
+                    gap: 5px !important;
+                    margin-left: 10px !important;
+                    height: 24px !important;
                 }
 
-                /* 2. Наводим порядок в самих плашках */
+                /* 2. Стандартный ободок (как в оригинале Лампы) */
                 .quality-badge {
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 20px !important; /* Стандартная высота */
+                    height: 20px !important;
                     padding: 0 4px !important;
-                    margin: 0 2px !important;
-                    border: 1px solid rgba(255,255,255,0.5) !important; /* Одинарный ободок */
+                    border: 1px solid rgba(255,255,255,0.4) !important;
                     border-radius: 3px !important;
-                    background: rgba(0,0,0,0.4) !important;
+                    background: rgba(0,0,0,0.3) !important;
                 }
 
-                /* 3. Делаем 5.1, 2.0 и HD чуть крупнее и ЖИРНЕЕ */
-                .quality-badge img {
-                    height: 14px !important; /* Оптимальный размер */
+                /* 3. УВЕЛИЧИВАЕМ ТОЛЬКО ВНУТРЕННИЕ ИКОНКИ 5.1, 2.0, HD */
+                /* Ищем картинки, в названии которых есть 5.1, 2.0 или hd */
+                .quality-badge img[src*="5.1"], 
+                .quality-badge img[src*="2.0"], 
+                .quality-badge img[src*="hd"] {
+                    height: 15px !important; /* Делаем крупнее */
                     width: auto !important;
-                    filter: brightness(1.3) contrast(1.4) !important; /* Четкость */
+                    transform: scale(1.1) !important; /* Немного расширяем */
+                    filter: brightness(1.2) contrast(1.2) !important; /* Делаем чётче */
                 }
 
-                /* 4. Жирность для текста (DUB, HDR) */
+                /* 4. Для текстовых иконок (HDR, DUB) */
                 .quality-badge--sound, .quality-badge--res {
                     font-weight: bold !important;
-                    font-size: 12px !important;
-                    line-height: 1 !important;
+                    font-size: 13px !important;
                 }
             </style>`;
 
-        // БЕЗОПАСНАЯ ВСТАВКА: удаляем всё старое перед добавлением
+        // Простая вставка без агрессивной очистки
         try {
-            var existingStyles = document.querySelectorAll('style[id*="custom-icons"]');
-            for(var i = 0; i < existingStyles.length; i++) {
-                existingStyles[i].parentNode.removeChild(existingStyles[i]);
-            }
+            var old = document.getElementById('custom-icons-size');
+            if (old) old.remove();
             
-            var styleElement = document.createElement('div');
-            styleElement.innerHTML = styleBlock;
-            document.body.appendChild(styleElement);
+            var node = document.createElement('div');
+            node.innerHTML = styleBlock;
+            document.body.appendChild(node);
         } catch (e) {
-            console.error('Lampa Reset Style Error:', e);
-        }                 
+            // Если возникла ошибка, просто выводим в консоль, не ломая скрипт
+            console.log('Restore error:', e);
+        }       
 })();
