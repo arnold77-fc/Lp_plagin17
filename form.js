@@ -7899,69 +7899,60 @@
     } else {
         window.FLIXIO_STUDIOS_ERROR = 'Lampa.Listener not found';
     }
-          var styleBlock = `
+        var styleBlock = `
             <style id="custom-icons-size">
-                /* 1. УДАЛЯЕМ ВНЕШНЮЮ СТАНДАРТНУЮ РАМКУ (СЕРЫЙ ФОН) */
+                /* 1. Полный сброс внешних контейнеров, чтобы убрать двойную рамку */
                 .applecation__quality-badges,
                 .applecation__quality-badges > div {
-                    border: none !important;
                     background: none !important;
-                    background-color: transparent !important;
+                    border: none !important;
                     box-shadow: none !important;
                     padding: 0 !important;
-                    margin: 0 !important;
+                    margin: 0 0 0 10px !important;
                     display: inline-flex !important;
                     align-items: center !important;
+                    height: auto !important;
                 }
 
-                /* 2. НАСТРОЙКА ЕДИНОГО ОБОДКА ДЛЯ ВСЕХ ИКОНОК */
-                .quality-badge, 
-                [class*="quality-badge"] {
+                /* 2. Наводим порядок в самих плашках */
+                .quality-badge {
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    height: 22px !important; /* Общая высота рамки */
-                    min-width: 30px !important;
+                    height: 20px !important; /* Стандартная высота */
                     padding: 0 4px !important;
-                    margin: 0 3px !important;
-                    border: 1.5px solid rgba(255,255,255,0.7) !important; /* Единственная рамка */
-                    border-radius: 4px !important;
-                    background: rgba(0,0,0,0.5) !important;
-                    box-sizing: border-box !important;
+                    margin: 0 2px !important;
+                    border: 1px solid rgba(255,255,255,0.5) !important; /* Одинарный ободок */
+                    border-radius: 3px !important;
+                    background: rgba(0,0,0,0.4) !important;
                 }
 
-                /* 3. УВЕЛИЧЕНИЕ ИКОНОК 5.1, 2.0, HD ВНУТРИ */
-                .quality-badge img,
-                [class*="quality-badge"] img {
-                    height: 16px !important; /* Увеличиваем саму картинку */
+                /* 3. Делаем 5.1, 2.0 и HD чуть крупнее и ЖИРНЕЕ */
+                .quality-badge img {
+                    height: 14px !important; /* Оптимальный размер */
                     width: auto !important;
-                    display: block !important;
-                    /* Делаем жирнее и ярче */
-                    filter: brightness(1.8) contrast(1.5) drop-shadow(0 0 0.5px #fff) !important;
-                    transform: scale(1.1) !important;
+                    filter: brightness(1.3) contrast(1.4) !important; /* Четкость */
                 }
 
-                /* 4. ЕСЛИ HDR ИЛИ DUB ОТОБРАЖАЮТСЯ ТЕКСТОМ */
-                .quality-badge--sound, 
-                .quality-badge--res,
-                .quality-badge {
-                    font-weight: 900 !important;
-                    font-size: 14px !important;
-                    color: #fff !important;
-                    text-shadow: 0px 0px 1px #fff !important;
+                /* 4. Жирность для текста (DUB, HDR) */
+                .quality-badge--sound, .quality-badge--res {
+                    font-weight: bold !important;
+                    font-size: 12px !important;
+                    line-height: 1 !important;
                 }
             </style>`;
 
-        // Исправленный метод вставки (гарантирует удаление старых стилей)
+        // БЕЗОПАСНАЯ ВСТАВКА: удаляем всё старое перед добавлением
         try {
-            var cleaning = document.querySelectorAll('#custom-icons-size');
-            cleaning.forEach(function(el) { el.remove(); });
+            var existingStyles = document.querySelectorAll('style[id*="custom-icons"]');
+            for(var i = 0; i < existingStyles.length; i++) {
+                existingStyles[i].parentNode.removeChild(existingStyles[i]);
+            }
             
             var styleElement = document.createElement('div');
-            styleElement.id = 'custom-icons-size';
             styleElement.innerHTML = styleBlock;
             document.body.appendChild(styleElement);
         } catch (e) {
-            console.error('Lampa Style Error:', e);
-        }       
+            console.error('Lampa Reset Style Error:', e);
+        }                 
 })();
